@@ -1,3 +1,4 @@
+import { use State } from 'react'
 import TarjetaReceta from './components/TarjetaRecetas'
 
 const recetas = [
@@ -7,10 +8,21 @@ const recetas = [
 ]
 
 function App() {
+  const recetasFiltradas = recetas.filter((receta) =>
+    receta.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    )
+  
   return (
     <div>
       <h1>🍳 Mis Recetas</h1>
-      {recetas.map((receta) => (
+      <input 
+        type = "text"
+        placeholder = "Buscar receta..."
+        value= {busqueda}
+        onChange = {(e) => setBusqueda(e.target.value)}
+        />
+      
+      {recetasFiltradas.map((receta) => (
         <TarjetaReceta
           key={receta.id}
           nombre={receta.nombre}
